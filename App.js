@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View, StatusBar, SafeAreaView } from "react-native";
+import React, {useState}  from "react";
+import { StyleSheet, Text, View, StatusBar, SafeAreaView, TouchableOpacity } from "react-native";
 import { Entypo } from '@expo/vector-icons'; 
 
 import Button from './src/components/Button';
@@ -19,21 +19,37 @@ const styles = StyleSheet.create({
     textAlign: "right",
     marginRight: 20,
     marginBottom: 10
+  },
+  themeButton: {
+    alignSelf: 'flex-start',
+    bottom: 100,
+    margin: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    
   }
 });
 
-export default class App extends React.Component {
+export default function App() {
   state = initialState;
+  const [darkMode, setDarkMode] = useState(false)
 
   handleTap = (type, value) => {
     this.setState(state => calculator(type, value, state));
   };
 
-  render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView>
+          <TouchableOpacity style={styles.themeButton}>
+            <Entypo name={darkMode ? "light-up" : 'moon'} size={24} color={darkMode ? "white" : 'black'} 
+                    onPress={() => darkMode ? setDarkMode(false) : setDarkMode(true)}
+            />
+          </TouchableOpacity>
           <Text style={styles.value}>
             {parseFloat(this.state.currentValue).toLocaleString().replace(/,/g, ".")}
           </Text>
@@ -110,4 +126,3 @@ export default class App extends React.Component {
       </View>
     );
   }
-}
