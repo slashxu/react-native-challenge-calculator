@@ -1,4 +1,4 @@
-import React, {useState}  from "react";
+import React from "react";
 import { StyleSheet, Text, View, StatusBar, SafeAreaView, TouchableOpacity } from "react-native";
 import { Entypo } from '@expo/vector-icons'; 
 
@@ -33,21 +33,21 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function App() {
+export default class App extends React.Component {
   state = initialState;
-  const [darkMode, setDarkMode] = useState(false)
 
   handleTap = (type, value) => {
     this.setState(state => calculator(type, value, state));
   };
 
+  render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView>
           <TouchableOpacity style={styles.themeButton}>
-            <Entypo name={darkMode ? "light-up" : 'moon'} size={24} color={darkMode ? "white" : 'black'} 
-                    onPress={() => darkMode ? setDarkMode(false) : setDarkMode(true)}
+            <Entypo name={'moon'} size={24} color={'black'} 
+                    onPress={() => ({})}
             />
           </TouchableOpacity>
           <Text style={styles.value}>
@@ -126,3 +126,4 @@ export default function App() {
       </View>
     );
   }
+}
